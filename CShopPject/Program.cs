@@ -6,7 +6,7 @@ namespace CShopPject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Woasdsadsarld!");
+            Console.WriteLine("Hello Woasdsaasdasdasddsarld!");
         }
     }
 }
