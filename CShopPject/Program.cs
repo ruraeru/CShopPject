@@ -6,7 +6,13 @@ namespace CShopPject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(12321312321312312312321);
+            Random r = new Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                int a = r.Next(1, 100);
+                Console.WriteLine(a);
+            }
         }
     }
 }
