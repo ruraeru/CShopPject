@@ -6,7 +6,7 @@ namespace CShopPject
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(123);
+            Console.WriteLine(12321312321312312312321);
         }
     }
 }
