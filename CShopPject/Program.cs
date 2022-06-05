@@ -5,166 +5,107 @@ namespace CShopPject
 {
     class Program
     {
-        enum Mark
+        enum Stone
         {
-            empty, leftRight, upDown, Cross
+            black, white, board
         }
-        static void Star()
+        static void PrintOmok(Stone[,] omok)
         {
-            Random r = new Random();
-            while(true)
+            Console.Write("   ");
+            for (int i = 0; i < 19; i++)
             {
-                for (int i = 0; i < 20; i++)
+                if (i < 9)
                 {
-                    Console.SetCursorPosition(r.Next(0, 80), r.Next(0, 25));
-                    Console.Write("*");
+                    Console.Write("{0}  ", i);
                 }
-                Thread.Sleep(500);
-                Console.Clear();
+                else Console.Write("{0} ", i);
             }
-        }
-        static void Print(Mark[,] Screen) 
-        {
-            while (true)
+            Console.WriteLine();
+            for (int i = 0; i < omok.GetLength(0); i++)
             {
-                Thread.Sleep(500);
-                for (int i = 0; i < 80; i++)
+                for (int j = 0; j < omok.GetLength(1); j++)
                 {
-                    for (int j = 0; j < 25; j++)
-                    {
-                        if (Screen[i, j] != Mark.empty)
-                        {
-                            Console.Write("╋");
-                        }
-                    }
+                    omok[i, j] = Stone.board;
                 }
             }
-        }
-        static void Load(Mark[,] Screen)
-        {
-            for (int i = 0; i < Screen.GetLength(0); i++)
+            for (int i = 0; i < omok.GetLength(0); i++)
             {
-                for (int j = 0; j < Screen.GetLength(1); j++)
+                Console.Write(" {0}", (char)(65 + i));
+                for (int j = 0; j < omok.GetLength(1); j++)
                 {
-                    switch (Screen[i, j])
+                    switch (omok[i, j])
                     {
-                        case Mark.empty:
+                        case Stone.black:
+                            Console.Write("●");
                             break;
-                        case Mark.leftRight:
-                            Console.SetCursorPosition(i, j);
-                            Console.Write("─");
-                            Thread.Sleep(10);
+                        case Stone.white:
+                            Console.Write("○");
                             break;
-                        case Mark.upDown:
-                            Console.SetCursorPosition(i, j);
-                            Console.Write("│");
-                            Thread.Sleep(10);
-                            break;
-                        case Mark.Cross:
-                            Console.SetCursorPosition(i, j);
-                            Console.Write("┼");
-                            Thread.Sleep(10);
+                        case Stone.board:
+                            Console.Write(" . ");
                             break;
                     }
                 }
+                Console.WriteLine();
             }
         }
-        static void Clear(Mark[,] Screen)
+        static void gotoxy(int x, int y)
         {
-            for (int i = 0; i < Screen.GetLength(0); i++)
-            {
-                for (int j = 0; j < Screen.GetLength(1); j++)
-                {
-                    Screen[i, j] = Mark.empty;
-                }
-            }
+            Console.SetCursorPosition(x, y);
         }
         static void Main(string[] args)
         {
-            Mark[,] Screen = new Mark[80, 25];
-            Console.SetWindowSize(Screen.GetLength(0), Screen.GetLength(1));
+            Stone[,] omok = new Stone[19, 19];
+            /*PrintOmok(omok);*/
+
+
+
             ConsoleKeyInfo k = Console.ReadKey();
-            int cursorX = 0, cursorY = 0;
-            Console.CursorVisible = false;
-            for (int i = 0; i < Screen.GetLength(0); i++)
-            {
-                for (int j = 0; j < Screen.GetLength(1); j++)
-                {
-                    Screen[i, j] = Mark.empty;
-                }
-            }
+            int X = 0, Y = 0;
+            Boolean WB = true;
             while (k.Key != ConsoleKey.Escape)
             {
                 k = Console.ReadKey();
+
                 switch (k.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        cursorY--;
-                        Console.SetCursorPosition(cursorX, cursorY);
-                        if (Screen[cursorX, cursorY] == Mark.leftRight || Screen[cursorX, cursorY] == Mark.Cross)
-                        {
-                            Console.Write("┼");
-                            Screen[cursorX, cursorY] = Mark.Cross;
-                        }
-                        else
-                        {
-                            Console.Write("│");
-                            Screen[cursorX, cursorY] = Mark.upDown;
-                        }
+                        Y--;
                         break;
                     case ConsoleKey.DownArrow:
-                        cursorY++;
-                        Console.SetCursorPosition(cursorX, cursorY);
-                        if (Screen[cursorX, cursorY] == Mark.leftRight || Screen[cursorX, cursorY] == Mark.Cross)
-                        {
-                            Console.Write("┼");
-                            Screen[cursorX, cursorY] = Mark.Cross;
-                        }
-                        else
-                        {
-                            Console.Write("│");
-                            Screen[cursorX, cursorY] = Mark.upDown;
-                        }
-                        break;
-                    case ConsoleKey.RightArrow:
-                        cursorX++;
-                        Console.SetCursorPosition(cursorX, cursorY);
-                        if (Screen[cursorX, cursorY] == Mark.upDown || Screen[cursorX, cursorY] == Mark.Cross)
-                        {
-                            Console.Write("┼");
-                            Screen[cursorX, cursorY] = Mark.Cross;
-                        }
-                        else
-                        {
-                            Console.Write("─");
-                            Screen[cursorX, cursorY] = Mark.leftRight;
-                        }
+                        Y++;
                         break;
                     case ConsoleKey.LeftArrow:
-                        cursorX--;
-                        Console.SetCursorPosition(cursorX, cursorY);
-                        if (Screen[cursorX, cursorY] == Mark.upDown || Screen[cursorX, cursorY] == Mark.Cross)
+                        X--;
+                        break;
+                    case ConsoleKey.RightArrow:
+                        X++;
+                        break;
+                    case ConsoleKey.Spacebar:
+                        if (omok[X / 2, Y] == Stone.board)
                         {
-                            Console.Write("┼");
-                            Screen[cursorX, cursorY] = Mark.Cross;
+                            if (WB) omok[X / 2, Y] = Stone.white;
+                            else omok[X / 2, Y] = Stone.black;
+                            WB = !WB;
                         }
-                        else
-                        {
-                            Console.Write("─");
-                            Screen[cursorX, cursorY] = Mark.leftRight;
-                        }
+                        gotoxy(X, Y);
+                        Console.Write("o");
                         break;
                     case ConsoleKey.C:
                         Console.Clear();
                         break;
-                    case ConsoleKey.L:
-                        Load(Screen);
-                        break;
-                    case ConsoleKey.Delete:
-                        Console.Clear();
-                        Clear(Screen);
-                        break;
                 }
+                if (X > omok.GetLength(0) * 2 - 1)
+                {
+                    X = omok.GetLength(0) * 2 - 1;
+                }
+                else if (X < 1) X = 0;
+                if (Y > omok.GetLength(1) - 1)
+                {
+                    Y = omok.GetLength(1) - 1;
+                }
+                else if (Y < 1) Y = 0;
+                gotoxy(X, Y);
             }
         }
     }
