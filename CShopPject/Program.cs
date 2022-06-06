@@ -46,58 +46,12 @@ namespace CShopPject
                 }
             }
         }
-        static Boolean CheckWin(Stone[,] omok, int X, int Y)
+        static bool CheckWin(Stone[,] omok, int X, int Y)
         {
             int coordX = X;
             int coordY = Y;
             int cnt = 0;
-            Boolean bo = false;
-
-            if (omok[coordX, coordY] == Stone.black)
-            {
-                for (int a = 0; a < 5; a++)
-                {
-                    coordX--;
-                }
-                for (int b = 0; b < 5; b++)
-                {
-                    coordX--;
-                    coordY++;
-                }
-                for (int c = 0; c < 5; c++)
-                {
-                    coordY++;
-                }
-                for (int d = 0; d < 5; d++)
-                {
-                    coordX++;
-                    coordY++;
-                }
-                for (int e = 0; e < 5; e++)
-                {
-                    coordX++;
-                }
-                for (int f = 0; f < 5; f++)
-                {
-                    coordX++;
-                    coordY--;
-                }
-                for (int g = 0; g < 5; g++)
-                {
-                    coordY--;
-                }
-                for (int h = 0; h < 5; h++)
-                {
-                    coordX--;
-                    coordY--;
-                }
-                Console.WriteLine(cnt);
-                cnt++;
-            } 
-            else if(omok[coordX, coordY] == Stone.white)
-            {
-
-            }
+            bool bo = false;
 
             if (cnt == 5)
             {
@@ -116,7 +70,7 @@ namespace CShopPject
             ConsoleKeyInfo k = Console.ReadKey();
             int cursorX = 0, cursorY = 0;
             int X = 0, Y = 0;
-            Boolean WB = true;
+            bool WB = true;
             while (k.Key != ConsoleKey.Escape)
             {
                 k = Console.ReadKey();
