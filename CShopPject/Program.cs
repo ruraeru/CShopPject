@@ -47,17 +47,19 @@ namespace CShopPject
             }
         }
 
+       
         static bool CheckWin(Stone[,] omok, int X, int Y)
         {
             int cnt = 0;
-            bool W = false;
+            bool WB = false;
+            bool confor = false;
             int a = X;
             int b = Y;
 
             if (omok[X, Y] == Stone.black)
             {
                 cnt = 0;
-            //오른쪽 위
+                //오른쪽 위
                 for (int i = Y; i < omok.GetLength(0); i++)
                 {
                     if (omok[a, i] == Stone.black)
@@ -74,8 +76,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -98,8 +100,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -116,10 +118,11 @@ namespace CShopPject
                         {
                             a++;
                             b--;
-                        } else
+                        }
+                        else
                         {
-                            a--; 
-                            b++; 
+                            a--;
+                            b++;
                         }
                         cnt++;
                     }
@@ -129,8 +132,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -153,8 +156,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -174,8 +177,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -194,15 +197,15 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
                 b = Y;
                 cnt = 0;
                 //아래
-                                    // 15  X ~ 14     X : 7 8 9 10 11 12 13 14
+                // 15  X ~ 14     X : 7 8 9 10 11 12 13 14
                 for (int i = X; i < omok.GetLength(0); i++)
                 {
                     if (omok[i, b] == Stone.black)
@@ -215,8 +218,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -234,13 +237,15 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = true;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
             }
+
             //흰돌
-            else if (omok[X, Y] == Stone.white)
+           
+            if (omok[X, Y] == Stone.white)
             {
                 cnt = 0;
                 //오른쪽 위
@@ -260,8 +265,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -284,8 +289,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -316,8 +321,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -340,8 +345,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -361,8 +366,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -381,8 +386,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -390,6 +395,8 @@ namespace CShopPject
                 cnt = 0;
                 //아래
                 // 15  X ~ 14     X : 7 8 9 10 11 12 13 14
+                
+                
                 for (int i = X; i < omok.GetLength(0); i++)
                 {
                     if (omok[i, b] == Stone.white)
@@ -402,8 +409,8 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
                     }
                 }
                 a = X;
@@ -421,13 +428,13 @@ namespace CShopPject
                     }
                     if (cnt == 5)
                     {
-                        W = false;
-                        return W;
+                        WB = true;
+                        return WB;
+                        
                     }
                 }
             }
-
-            return W;
+            return WB;
         }
 
         static void Main(string[] args)
@@ -481,18 +488,29 @@ namespace CShopPject
                         PrintOmok(omok);
                         Console.WriteLine(!WB ? "흑돌 차례" : "백돌 차례");
                         Console.WriteLine("omok : {0} X : {1} Y : {2} cursorX : {3} cursorY : {4}", omok[X, Y], X, Y, cursorX, cursorY);
-
-                        if (CheckWin(omok, X, Y))
+                        if (omok[X, Y] == Stone.black) 
                         {
-                            if (WB)
+                            if (CheckWin(omok, X, Y))
                             {
-                                Console.WriteLine("black");
-                            }
-                            else
-                            {
-                                Console.WriteLine("white");
+                                Console.WriteLine("black 승리");
+                                Console.Clear();
+                                Delete(omok);
+                                PrintOmok(omok);
+                                WB = false;
                             }
                         }
+                        else
+                        {
+                            if (CheckWin(omok, X, Y))
+                            {
+                                Console.WriteLine("white 승리");
+                                Console.Clear();
+                                Delete(omok);
+                                PrintOmok(omok);
+                                WB = false;
+                            }
+                        }
+                        
                         break;
                     case ConsoleKey.C:
                         Console.Clear();
