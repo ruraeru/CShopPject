@@ -51,144 +51,181 @@ namespace CShopPject
         {
             int cnt = 0;
             bool W = false;
-            int a = 0;
-            int b = 0;
-            // X = 7, Y = 7
-            //  i < 14
-            // X = 6 Y = 8
-            //for (int n = 0; n < 5; n++)
-            //{
-            //    for (int i = 0; i < omok.GetLength(0); i++)
-            //    {
-            //        //j < 14;
-            //        for (int j = X; j < omok.GetLength(1); j++)
-            //        {
+            int a = X;
+            int b = Y;
 
-            //        }
-            //    }
-            //}
-            
+            //오른쪽 위
             if (omok[X, Y] == Stone.black)
             {
                 cnt = 0;
-
-                for (int i = Y; i < omok.GetLength(1); i++)
+                for (int i = Y; i < omok.GetLength(0); i++)
                 {
-                    if (omok[X, i] == Stone.black)
+                    if (omok[a, i] == Stone.black)
                     {
-                        cnt++;
-                        if (cnt == 5)
+                        if (a != 0)
                         {
-                            W = true;
+                            a--;
                         }
+                        cnt++;
                     }
                     else
                     {
                         cnt = 0;
                     }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
                 }
-
+                a = X;
+                cnt = 0;
+                //오른쪽 아래
+                for (int i = Y; i < omok.GetLength(0); i++)
+                {
+                    if (omok[a, i] == Stone.black)
+                    {
+                        if (a != omok.GetLength(0) - 1)
+                        {
+                            a++;
+                        }
+                        cnt++;
+                    }
+                    else
+                    {
+                        cnt = 0;
+                    }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
+                }
+                a = X;
+                cnt = 0;
+                //왼쪽 아래
+                // X = 14 Y = 0
+                //A = 14 B = 0
+                for (int i = 0; i < 5; i++)
+                {
+                    if (omok[a, b] == Stone.black)
+                    {               //a <= 14 && b >= 0 a-- b++
+                        if (a != omok.GetLength(0) - 1 && b != 0)
+                        {
+                            a++;
+                            b--;
+                        } else
+                        {
+                            a--; 
+                            b++; 
+                        }
+                        cnt++;
+                    }
+                    else
+                    {
+                        cnt = 0;
+                    }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
+                }
+                a = X;
+                cnt = 0;
+                //왼쪽 위
+                for (int i = Y; i > 0; i--)
+                {
+                    if (omok[a, i] == Stone.black)
+                    {
+                        if (a != 0)
+                        {
+                            a--;
+                        }
+                        cnt++;
+                    }
+                    else
+                    {
+                        cnt = 0;
+                    }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
+                }
+                a = X;
+                cnt = 0;
+                //위
                 for (int i = Y; i >= 0; i--)
                 {
-                    if (omok[X, i] == Stone.black)
+                    if (omok[i, a] == Stone.black)
                     {
                         cnt++;
-                        if (cnt == 5)
-                        {
-                            W = true;
-                        }
                     }
                     else
                     {
                         cnt = 0;
                     }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
                 }
-
+                //오른쪽
+                for (int i = Y; i < omok.GetLength(1); i++)
+                {
+                    if (omok[a, i] == Stone.black)
+                    {
+                        cnt++;
+                    }
+                    else
+                    {
+                        cnt = 0;
+                    }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
+                }
+                //아래
                 for (int i = X; i < omok.GetLength(0); i++)
                 {
-                    if (omok[i, Y] == Stone.black)
+                    if (omok[i, b] == Stone.black)
                     {
                         cnt++;
-                        if (cnt == 5)
-                        {
-                            W = true;
-                        }
                     }
                     else
                     {
                         cnt = 0;
                     }
+                    if (cnt == 5)
+                    {
+                        W = true;
+                        return W;
+                    }
                 }
-
-                for (int i = X; i >= 0; i--)
+                //왼쪽
+                for (int i = Y; i >= 0; i--)
                 {
-                    if (omok[i, Y] == Stone.black)
+                    if (omok[a, i] == Stone.black)
                     {
                         cnt++;
-                        if (cnt == 5)
-                        {
-                            W = true;
-                        }
                     }
                     else
                     {
                         cnt = 0;
                     }
-                }
-
-
-
-
-
-                for (int i = X; i >= 0; i--)
-                {
-                    if (omok[i, Y] == Stone.black)
+                    if (cnt == 5)
                     {
-                        cnt++;
-                        if (cnt == 5)
-                        {
-                            W = true;
-                        }
-                    }
-                    else
-                    {
-                        cnt = 0;
-                    }
-                }
-                for (int i = X; i >= 0; i--)
-                {
-                    for (int j = Y; j < omok.GetLength(1); j++)
-                    {
-                        if (omok[i, j] == Stone.black)
-                        {
-                            cnt++;
-                            if (cnt == 5)
-                            {
-                                W = true;
-                            }
-                        }
-                        else
-                        {
-                            cnt = 0;
-                        }
-                    }
-                }
-                for (int i = X; i < omok.GetLength(1); i++)
-                {
-                    if (omok[X, i] == Stone.black)
-                    {
-                        cnt++;
-                        if (cnt == 5)
-                        {
-                            W = true;
-                        }
-                    }
-                    else
-                    {
-                        cnt = 0;
+                        W = true;
+                        return W;
                     }
                 }
             }
+
             return W;
         }
 
@@ -268,6 +305,7 @@ namespace CShopPject
                         Console.Clear();
                         Delete(omok);
                         PrintOmok(omok);
+                        WB = false;
                         break;
                 }
                 if (cursorX > omok.GetLength(1) * 2 - 1)
