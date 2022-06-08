@@ -497,7 +497,8 @@ namespace CShopPject
                         {
                             if (CheckWin(omok, X, Y))
                             {
-                                Console.WriteLine("black 승리");
+                                Console.SetCursorPosition(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
+                                Console.WriteLine("===== 흑돌 승리 =====");
                                 Thread.Sleep(1000);
                                 Console.Clear();
                                 Delete(omok);
@@ -509,7 +510,8 @@ namespace CShopPject
                         {
                             if (CheckWin(omok, X, Y))
                             {
-                                Console.WriteLine("white 승리");
+                                Console.SetCursorPosition(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
+                                Console.WriteLine("===== 백돌 승리 =====");
                                 Thread.Sleep(1000);
                                 Console.Clear();
                                 Delete(omok);
