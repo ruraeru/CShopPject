@@ -11,6 +11,7 @@ namespace CShopPject
         }
         static void PrintOmok(Stone[,] omok)
         {
+            setCoord(0, 0);
             for (int i = 0; i < omok.GetLength(0); i++)
             {
                 for (int j = 0; j < omok.GetLength(1); j++)
@@ -52,11 +53,8 @@ namespace CShopPject
         {
             int cnt = 0;
             bool WB = false;
-            bool confor = false;
             int a = X;
             int b = Y;
-            //0, 0     0, 14
-            //14, 0    14, 14
 
             //흑돌
             if (omok[X, Y] == Stone.black)
@@ -80,7 +78,6 @@ namespace CShopPject
                             cnt = 0;
                         }
                     }
-
                     if (cnt == 5)
                     {
                         WB = true;
@@ -88,7 +85,6 @@ namespace CShopPject
                     }
                 }
                 a = X;
-                b = Y;
                 cnt = 0;
                 //오른쪽 아래   14    14
                 for (int i = Y; i < omok.GetLength(0); i++)
@@ -113,7 +109,6 @@ namespace CShopPject
                     }
                 }
                 a = X;
-                b = Y;
                 cnt = 0;
                 //왼쪽 아래
                 // X = 14 Y = 0
@@ -142,7 +137,6 @@ namespace CShopPject
                     }
                 }
                 a = X;
-                b = Y;
                 cnt = 0;
                 //왼쪽 위
                 for (int i = Y; i >= 0; i--)
@@ -165,7 +159,6 @@ namespace CShopPject
                         return WB;
                     }
                 }
-                a = X;
                 b = Y;
                 cnt = 0;
                 //위
@@ -187,7 +180,6 @@ namespace CShopPject
                     }
                 }
                 a = X;
-                b = Y;
                 cnt = 0;
                 //오른쪽
                 for (int i = Y; i < omok.GetLength(1); i++)
@@ -206,7 +198,6 @@ namespace CShopPject
                         return WB;
                     }
                 }
-                a = X;
                 b = Y;
                 cnt = 0;
                 //아래
@@ -441,12 +432,18 @@ namespace CShopPject
             return WB;
         }
 
+        static void Default(Stone[,] omok)
+        {
+            Console.Clear();
+            Delete(omok);
+            PrintOmok(omok);
+        }
+
         static void Main(string[] args)
         {
             Stone[,] omok = new Stone[15, 15];
-            Delete(omok);
-            PrintOmok(omok);
-
+            Default(omok);
+            Console.SetWindowSize(50, 20);
 
             ConsoleKeyInfo k = Console.ReadKey();
             int cursorX = 0, cursorY = 0;
@@ -481,28 +478,26 @@ namespace CShopPject
                             if (WB)
                             {
                                 omok[X, Y] = Stone.white;
-                                WB = !WB;
                             }
                             else
                             {
                                 omok[X, Y] = Stone.black;
-                                WB = !WB;
                             }
+                            WB = !WB;
                         }
                         Console.Clear();
                         PrintOmok(omok);
                         Console.WriteLine(WB ? "백돌 차례" : "흑돌 차례");
-                        //Console.WriteLine("omok : {0} X : {1} Y : {2} cursorX : {3} cursorY : {4}", omok[X, Y], X, Y, cursorX, cursorY);
+                        Console.WriteLine("omok : {0} X : {1} Y : {2} cursorX : {3} cursorY : {4}", omok[X, Y], X, Y, cursorX, cursorY);
                         if (omok[X, Y] == Stone.black)
                         {
                             if (CheckWin(omok, X, Y))
                             {
-                                Console.SetCursorPosition(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
+                                Console.Clear();
+                                setCoord(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
                                 Console.WriteLine("===== 흑돌 승리 =====");
                                 Thread.Sleep(1000);
-                                Console.Clear();
-                                Delete(omok);
-                                PrintOmok(omok);
+                                Default(omok);
                                 WB = false;
                             }
                         }
@@ -510,17 +505,16 @@ namespace CShopPject
                         {
                             if (CheckWin(omok, X, Y))
                             {
-                                Console.SetCursorPosition(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
+                                Console.Clear();
+                                setCoord(omok.GetLength(0) / 2, omok.GetLength(1) / 2);
                                 Console.WriteLine("===== 백돌 승리 =====");
                                 Thread.Sleep(1000);
-                                Console.Clear();
-                                Delete(omok);
-                                PrintOmok(omok);
+                                Default(omok);
                                 WB = false;
                             }
                         }
-
                         break;
+
                     case ConsoleKey.C:
                         Console.Clear();
                         break;
@@ -530,9 +524,7 @@ namespace CShopPject
                         break;
                     case ConsoleKey.F:
                     case ConsoleKey.Delete:
-                        Console.Clear();
-                        Delete(omok);
-                        PrintOmok(omok);
+                        Default(omok);
                         WB = false;
                         break;
                 }
@@ -558,6 +550,7 @@ namespace CShopPject
                 }
                 setCoord(cursorX, cursorY);
             }
+            Console.Clear();
         }
     }
 }
